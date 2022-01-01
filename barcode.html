@@ -1,0 +1,542 @@
+<html lang="en" class=" js cssanimations csscalc cssvhunit" style="">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>Fullscreen Form Interface</title>
+	<meta name="description" content="Fullscreen Form Interface: A distraction-free form concept with fancy animations">
+	<meta name="keywords" content="fullscreen form, css animations, distraction-free, web design">
+	<meta name="author" content="Codrops">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<style>
+		.modify{
+			margin-top: 30px;
+			margin-left: 250px;
+			color:white;
+			font-size: 30px;
+			padding: 5px;
+			border-radius: 5px;
+			border-style: solid;
+			border-width: 2px;
+			border-color:white;
+		}
+		.remove{
+			display: none;
+			margin-top: 30px;
+			margin-left: 250px;
+			color:white;
+			font-size: 30px;
+			padding: 5px;
+			border-radius: 5px;
+			border-style: solid;
+			border-width: 2px;
+			border-color:white;
+		}
+		.complete{
+			position: absolute;
+			top:calc(50% + 300px);
+			left:calc(50% + 180px);
+			color:white;
+			font-size: 30px;
+			padding: 5px;
+			border-radius: 5px;
+			border-style: solid;
+			border-width: 2px;
+			border-color:white;
+		}
+		#container {
+			display: none;
+			width: 550px;
+			height: 800px;
+			border-radius: 0px;
+			overflow: hidden;
+			margin: auto;
+			position: absolute;
+			border-top: 4px solid #35394A;
+			background: #1E202B;
+			top:calc(50% - 400px);
+			left:calc(50% - 275px);
+		}
+		#send {
+			display: none;
+			width: 550px;
+			height: 800px;
+			border-radius: 0px;
+			overflow: hidden;
+			margin: auto;
+			position: absolute;
+			border-top: 4px solid #35394A;
+			background: #1E202B;
+			top:calc(50% - 400px);
+			left:calc(50% - 275px);
+		}
+		#revision {
+			display: none;
+			width: 550px;
+			height: 800px;
+			border-radius: 0px;
+			overflow: hidden;
+			margin: auto;
+			position: absolute;
+			border-top: 4px solid #35394A;
+			background: #1E202B;
+			top:calc(50% - 400px);
+			left:calc(50% - 275px);
+		}
+		#header {
+			background: #35394A;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			position: relative;
+			z-index: 1;
+			transition: 400ms ease-out;
+		}
+
+		#header.focus0 {
+			height: 15% !important;
+		}
+
+		#continput {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: transparent;
+			padding-left: 50px;
+			padding-right: 50px;
+			box-sizing: border-box;
+			transition: 150ms cubic-bezier(0, 2.15, 0.97, 0.36);
+			transition-delay: 500ms;
+		}
+
+		#continput.focus1 {
+			padding-left: 25px !important;
+			padding-right: 25px !important;
+		}
+
+		#input-group {
+			width: 100%;
+			height: 50px;
+		background: #1B1B1D;
+			border-radius: 3px;
+			position: relative;
+			z-index: 2;
+			top: 320px;
+			overflow: hidden;
+			transition: top 350ms ease-in-out;
+		}
+
+		#input-group.focus2 {
+			top: 70px !important;
+		}
+
+		#barcode {
+			width: 100%;
+			height: 100%;
+			border: none;
+			outline: none;
+			font-family: 'Roboto';
+			font-weight: 100;
+			font-size: 22px;
+			padding: 10px;
+			padding-right: 50px;
+			box-sizing: border-box;
+			background: #1B1B1D;
+			color: #ccc;
+		}
+
+		#icon-src {
+			position: absolute;
+			top: 11px;
+			right: -30px;
+			border: none;
+			background: transparent;
+			font-size: 20px;
+			cursor: pointer;
+			color: #999;
+			outline: none;
+			transition: 150ms cubic-bezier(0.53, 0.88, 0.72, 1.26);
+			transition-delay: 500ms;
+		}
+
+		#icon-src.focus3 {
+			right: 10px !important;
+			color: #999 !important;
+		}
+
+		#logo {
+			position: absolute;
+			top: 230px;
+			z-index: 2;
+			left: 30px;
+			transition: 300ms cubic-bezier(0.96, 1.11, 0.86, 1.13);
+			transition-delay: 150ms;
+		}
+
+		#logo.focus4 {
+			top: 17px;
+			transform: scale(0.6);
+			transition-delay: 0ms;
+		}
+
+		#logo p {
+			font-family: 'Roboto';
+			text-transform: uppercase;
+			font-weight: 900;
+			color: #fff;
+			font-size: 35px;
+			margin: 0;
+		}
+
+		#logo p span {
+			font-weight: 100;
+			font-style: italic;
+		}
+
+		.kind {
+			font-family: 'Roboto';
+			text-transform: uppercase;
+			font-weight: 900;
+			color: #fff;
+			font-size: 35px;
+			margin: 0;
+		}
+
+		.result {
+			font-weight: 100;
+			font-style: italic;
+		}
+
+		#results {
+			position: absolute;
+			left: 25px;
+			top: 135px;
+			width: 500px !important;
+			background: transparent;
+			border-radius: 3px;
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			box-sizing:border-box;
+			opacity: 0;
+			transition: 100ms ease-in;
+		}
+
+		#results li {
+			padding: 5px 10px 5px 10px;
+			transition: 200ms ease-in;
+		}
+
+		#results li:first-child {
+			padding-top:10px;
+			border-radius:3px 3px 0 0;
+		}
+
+		#results li:last-child {
+			padding-bottom:10px;
+			border-radius:0 0 3px 3px;
+		}
+
+		#results li {
+			color: #999;
+			text-decoration: none;
+			font-family: 'Roboto';
+			font-weight: 100;
+			font-size: 20px;
+		}
+
+		#results li {
+			color: white;
+		}
+
+		#results.visible{
+			opacity: 1 !important;
+		}
+
+		article{
+		display:none;
+		width:560px;
+		position:absolute;
+		top:calc(50% - 100px);
+		right:calc(50% - 900px);
+		margin:50px auto;
+		padding:26px;
+		box-sizing:border-box;
+		text-align:left;
+			vertical-align:text-top
+		}
+		button {
+			background: 0;
+			border: 0;
+			padding: 0;
+			cursor: pointer
+		}
+		.ico_arrow{
+		width:80px;
+		height:80px;
+		position:relative;
+		text-indent:-9999px;
+
+		}
+		.ico_arrow:before{
+		content:'';
+		width:30px;
+		height:30px;
+		position:absolute;
+		left:50%;
+		top:50%;
+		border-left:2px solid #000;
+		border-top:2px solid #000;
+		transform:translate(-50%,-50%) rotate(135deg);
+		}
+		.ico_arrow:after{
+		content:'';
+		width:42px;
+		height:2px;
+		position:absolute;
+		right:20px;
+		top:50%;
+		transform:translateY(-50%);
+		background:#000
+		}
+		#check {
+			position: absolute;
+			left: 25px;
+			top: 135px;
+			width: 500px !important;
+			background: transparent;
+			border-radius: 3px;
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			box-sizing:border-box;
+			transition: 100ms ease-in;
+		}
+
+		#check li {
+			padding: 5px 10px 5px 10px;
+			transition: 200ms ease-in;
+		}
+
+		#check li:first-child {
+			padding-top:10px;
+			border-radius:3px 3px 0 0;
+		}
+
+		#check li:last-child {
+			padding-bottom:10px;
+			border-radius:0 0 3px 3px;
+		}
+
+		#check li {
+			color: #999;
+			text-decoration: none;
+			font-family: 'Roboto';
+			font-weight: 100;
+			font-size: 20px;
+		}
+
+		#check li {
+			color: white;
+		}
+
+		#check.visible{
+			opacity: 1 !important;
+		}
+		#modify {
+			position: absolute;
+			left: 25px;
+			top: 135px;
+			width: 300px !important;
+			background: transparent;
+			border-radius: 3px;
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			box-sizing:border-box;
+			transition: 100ms ease-in;
+		}
+
+		#modify li {
+			padding: 5px 10px 5px 10px;
+			transition: 200ms ease-in;
+		}
+
+		#modify li:first-child {
+			padding-top:10px;
+			border-radius:3px 3px 0 0;
+		}
+
+		#modify li:last-child {
+			padding-bottom:10px;
+			border-radius:0 0 3px 3px;
+		}
+
+		#modify li {
+			color: #999;
+			text-decoration: none;
+			font-family: 'Roboto';
+			font-weight: 100;
+			font-size: 20px;
+		}
+
+		#modify li {
+			color: white;
+		}
+
+		#modify.visible{
+			opacity: 1 !important;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="logo">
+			<p>barcode<span>search</span></p>
+		</div>
+		<div id="continput">
+			<div id="input-group">
+				<form id="search">
+					<input type="text" id="barcode" autocomplete="off">
+					<button id="icon-src"><i class="fa fa-search" aria-hidden="true"></i></button>
+				</form>
+			</div>
+		</div>
+		<ul id="results">
+		</ul>
+		
+		<div id="header"></div>
+	</div>
+	<button id="back">
+		뒤로가기
+	</button>
+	<article>
+		<button class="ico_arrow" type="button"></button>
+	</article>
+	<div id="send">
+		<button class="remove">삭제</button>
+		<ul id="check">
+		</ul>
+		<button class="complete">
+			전송
+		</button>
+	</div>
+</body>
+<script>
+	var contInput = document.getElementById('continput');
+	var gInput = document.getElementById('input-group');
+	var input = document.getElementById('barcode');
+	var button = document.getElementById('icon-src');
+	var logo = document.getElementById('logo');
+	var results = document.getElementById('results');
+	var redBg = document.getElementById('header');
+
+	var element = [redBg, contInput, gInput, button, logo, results];
+
+	input.addEventListener('focus', function(){
+		for (var i = 0; i < element.length; i++) {
+		element[i].classList.add('focus' + i);
+		}
+	}, false);
+
+	input.addEventListener('keyup', function(){
+		if (results.childNodes.length === 0) {
+			results.classList.remove('visible');
+		} else {
+		results.classList.add('visible');
+		}
+	},false);
+
+	/* jquery for autocomplete*/
+
+	jQuery(document).ready(function($) {
+
+		$('#container').fadeIn(1000);
+
+		var key;
+		
+		$.ajax({
+				url:'http://localhost:8081/getKey',
+				success:function(data){
+					key = data;
+				}
+			})
+
+		$("#search").submit(function (event) {
+			event.preventDefault();
+			$.ajax({
+				url:'http://openapi.foodsafetykorea.go.kr/api/'+key+'/C005/json/1/5/BAR_CD='+$("#barcode").val(),
+				success:function(data){
+					if(data.C005.RESULT.CODE == "INFO-000"){
+						var result = data.C005.row[0].PRDLST_NM;
+						var kind = data.C005.row[0].PRDLST_DCNM;
+						var li = "<li class='list'><span class='kind'>"+kind+"</span><span class='result'>"+result+"</span></li>"
+						$("#results").append(li);
+						$("#check").append(li);
+						var modify = "<li class='list'><input type='text' value='"+result+"'><input type='checkbox'></li>"
+						$("#modify").append(modify);
+						$("#barcode").val('');
+						$("article").fadeIn();
+						$("article").show();
+						return false;
+					} else {
+						$("#barcode").val('');
+					}
+				}
+			})
+		});
+
+		$('#back').click(function(){
+			location.href = "index.html"
+		});
+		
+		$('.ico_arrow').click(function(){
+			$('.ico_arrow').fadeOut(1000);
+			$('#container').fadeOut(1000);
+			setTimeout(function() {
+				$('#send').fadeIn(1000);
+			}, 1000);	
+		});
+
+		$('.modify').click(function(){
+			$('#send').fadeOut(1000)
+			setTimeout(function() {
+				$('#revision').fadeIn(1000);
+			}, 1000);	
+		});
+
+		var Stock = function(name,kind){
+			this.kind = kind;
+			this.name = name;
+			this.price = 0;
+			this.stockQuantity = 1;
+			return this;
+		}
+		
+		$('.complete').click(function(){
+			
+			var stocks = new Array();
+			
+			for(var i = 0; i < $('#check').children().length; i++){				
+				var name = $('#check').children().eq(i).children().eq(1).css("class", "result").text();
+				var kind = $('#check').children().eq(i).children().eq(0).css("class", "kind").text();
+				var stock = new Stock(name,kind);
+				stocks.push(stock);
+			}
+			
+			$.ajax({
+				url:"http://localhost:8081/add",
+				crossDomain: true,
+				traditional : true,
+				dataType: 'json',
+				type: 'POST',
+				data: JSON.stringify(stocks),
+				contentType: 'application/json',
+				success: function(data){
+					$('#send').fadeOut(1000);
+				}
+			})
+		});
+	});
+</script>
+</html>
